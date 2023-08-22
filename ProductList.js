@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState}from "react";
 import {
   StyleSheet,
   Text,
@@ -8,34 +8,35 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import cars from "./cars";
 
 
-export default function CarList(props) {
+const ProductList = (props)  => {
+	const [earbuds, setEarbuds] = useState(props.route.params.earbuds);
 
-  const renderCarList = (item) => {
+  const renderProduct = (item) => {
     return (
       <TouchableOpacity
-        style={styles.carItem}
-        onPress={() => props.navigation.navigate("CarDetail", { item })}
+        style={styles.earbudsItem}
+        onPress={() => props.navigation.navigate("ProductDetail", { item })}
       >
         <View style={styles.ImageDiv}>
-          <Image style={styles.carImage} source={{ uri: item.image }} />
+          <Image style={styles.earbudsImage} source={{ uri: item.image }} />
         </View>
         <View>
           <Text style={styles.FontBold}>{item.name}</Text>
-          <Text>{item.price} $ par jour</Text>
+          <Text>{item.price} € au total</Text>
         </View>
       </TouchableOpacity>
     );
   };
   return (
     <View style={styles.container}>
-      <FlatList
-        keyExtractor={(item) => item.id}
-        data={cars}
-        renderItem={({ item }) => renderCarList(item)}
-      />
+   <FlatList
+  keyExtractor={(item, index) => index.toString()}
+  data={earbuds}
+  renderItem={({ item }) => renderProduct(item)}
+/>
+ 
     </View>
   );
 }
@@ -45,7 +46,7 @@ const vm = Dimensions.get("screen").width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "black",
     alignItems: "center",
   },
   FontBold: {
@@ -54,11 +55,11 @@ const styles = StyleSheet.create({
   ImageDiv: {
     justifyContent: "center",
   },
-  carImage: {
+  earbudsImage: {
     width: 150,
     height: 90,
   },
-  carItem: {
+  earbudsItem: {
     borderRadius: 15,
     flexDirection: "row",
     width: 350,
@@ -70,3 +71,5 @@ const styles = StyleSheet.create({
 
 
 });
+
+export default ProductList;

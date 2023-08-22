@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Switch,
   TextInput,
@@ -7,18 +7,31 @@ import {
   StyleSheet,
   Dimensions,
   Image,
-  ScrollView,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import cars, { AUTOMATIC, MANUAL } from "./cars";
 
-const Filter = () => {
+const Filter = (props) => {
 
+	const getEarbuds = async () => {
+		try {
+			const response = await fetch("http://192.168.0.31:5500/monos");
+			if (!response.ok) {
+				throw new Error("Erreur récupération données");
+			}
+			const data = await response.json();
+			setEarbuds(data);
+		} catch (error) {
+			console.error("Error de fetch:", error.message);
+		}
+	}
+	useEffect(() => {
+		getEarbuds();
 
+	}, []);
+	const [earbuds, setEarbuds] = useState([]);
   const [isEnabled, setEnabled] = useState(true);
-  const [isEnabledtwo, setEnabledtwo] = useState(true);
   const [priceMin, setMinPrice] = useState(0);
-  const [priceMax, setMaxPrice] = useState(1000);
+  const [priceMax, setMaxPrice] = useState(300);
 
 
 
@@ -27,12 +40,12 @@ const Filter = () => {
     setEnabledtwo((previousState) => !previousState);
 
   const renderFilter = (item, props) => {
-    if (item.price > priceMin && item.price < priceMax && isEnabled && item.options.transmission === "automatique" || !isEnabled && item.options.transmission === "manuel" && isEnabledtwo && item.options.aircondition || !isEnabledtwo && !item.options.aircondition) {
+    if (item.price > priceMin && item.price < priceMax && isEnabled && item.options.bluetooth || !isEnabled && !item.options.bluetooth) {
       return (
         <View style={styles.reservations}>
           <Image style={styles.reservationImage} source={{ uri: item.image }} />
           <View>
-            <Text style={styles.titleCars}> {item.name}</Text>
+            <Text style={styles.titleEarbuds}> {item.name}</Text>
             <Text>{item.price}€</Text>
 
           </View>
@@ -44,7 +57,7 @@ const Filter = () => {
   return (
     <View style={styles.containers}>
       <View style={styles.container}>
-        <Text>Prix</Text>
+        <Text style={styles.white}>Prix</Text>
         <TextInput
           style={styles.switch}
           placeholder="0"
@@ -53,33 +66,26 @@ const Filter = () => {
 
         <TextInput
           style={styles.switch}
-          placeholder="1000"
+          placeholder="300"
           onChangeText={setMaxPrice}
         ></TextInput>
       </View>
       <View style={styles.containerInput}>
-        <Text>Automatique</Text>
+        <Text style={styles.white}>Bluetooth</Text>
         <Switch
           trackColor={{ false: "#a8a8a8", true: "#a8d0cc" }}
           thumbColor={isEnabled ? "#008275" : "#fff"}
           onValueChange={toggleSwitch}
           value={isEnabled}
         />
-        <Text>Climatisation</Text>
-        <Switch
-          trackColor={{ false: "#a8a8a8", true: "#a8d0cc" }}
-          thumbColor={isEnabledtwo ? "#008275" : "#fff"}
-          onValueChange={toggleSwitchtwo}
-          value={isEnabledtwo}
-        />
+
       </View>
 
-      <FlatList
-        keyExtractor={(item) => item.id}
-        data={cars}
-        renderItem={({ item }) => renderFilter(item)}
-        numColumns={1}
-      />
+	  <FlatList
+  keyExtractor={(item, index) => index.toString()}
+  data={earbuds}
+  renderItem={({ item }) => renderFilter(item)}
+/>
     </View>
   );
 };
@@ -93,19 +99,24 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   containers: {
-    backgroundColor: '#FFFFFF80',
+    backgroundColor: 'black',
     flex: 7,
+	
+  },
+  white:{
+	color:"white",
   },
   titleLink: {
     color: "#28A2DA",
     fontSize: 20,
   },
-  titleCars: {
+  titleEarbuds: {
     fontWeight: "bold",
   },
   titleReserve: {
     color: "#467485",
     fontSize: 20,
+	
   },
   reservations: {
     flexDirection: "row",
@@ -135,6 +146,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderWidth: 2,
+	backgroundColor:"white"
 
   },
   containerInput: {
@@ -142,6 +154,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     margin: 15,
+	
   },
 });
 

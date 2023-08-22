@@ -12,8 +12,8 @@ import {
   Text,
 } from "react-native";
 import Filter from "./Filter";
-import CarList from "./CarList";
-import CarDetail from "./CarDetail";
+import ProductList from "./ProductList";
+import ProductDetail from "./ProductDetail";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,7 +42,7 @@ const App = () => {
           headerTintColor: "white",
           headerTitleAlign: "center",
           headerStyle: {
-            backgroundColor: "#0d5978",
+            backgroundColor: "#1f1f1f",
           },
         }}
       >
@@ -54,17 +54,17 @@ const App = () => {
               <View>
                 <Image
                   style={styles.icon}
-                  source={require("./assets/logo-transparent.png")}
+                  source={require("./assets/logo.png")}
                 />
               </View>
             ),
           }}
         />
        <Stack.Screen
-            name="CarList"
-            component={CarList}
+            name="ProductList"
+            component={ProductList}
             options={({ navigation }) => ({
-              title: "Nos Véhicules",
+              title: "Nos Ecouteurs",
               headerLeft: () => (
                 <TouchableOpacity onPress={() => filterDisable(navigation)}>
                   <Text style={styles.text}>Retour</Text>
@@ -78,8 +78,8 @@ const App = () => {
             })}
           />
         <Stack.Screen
-          name="CarDetail"
-          component={CarDetail}
+          name="ProductDetail"
+          component={ProductDetail}
           options={({ route }) => ({ title: route.params.item.name })}
         />
         

@@ -8,53 +8,53 @@ import {
   Dimensions,
 } from "react-native";
 
-const CarDetail = (props) => {
+const ProductDetail = (props) => {
   const [item, setItem] = useState(props.route.params.item);
 
   return (
     <View style={styles.container}>
-      <Image style={styles.carImage} source={{ uri: item.image }} />
+      <Image style={styles.earbudsImage} source={{ uri: item.image }} />
 
       <View style={styles.wrappers}>
         <View style={styles.wrapper}>
           <Image
-            source={require("./assets/icons/compass.png")}
+            source={require("./assets/icons/speaker.png")}
             style={styles.icon}
           ></Image>
-          <Text>{item.options.transmission}</Text>
+          <Text>{item.options.bassBoost ? "Oui" : "Non"}</Text>
         </View>
         <View style={styles.wrapper}>
           <Image
-            source={require("./assets/icons/doors.png")}
+            source={require("./assets/icons/bluetooth.png")}
             style={styles.icon}
           ></Image>
-          <Text>{item.options.person} personnes</Text>
+          <Text>{item.options.bluetooth} ver.</Text>
         </View>
         <View style={styles.wrapper}>
           <Image
-            source={require("./assets/icons/engine.png")}
+            source={require("./assets/icons/battery.png")}
             style={styles.icon}
           ></Image>
-          <Text>{item.options.navigation ? "GPS intégré" : "Pas de GPS"}</Text>
+          <Text>{item.options.batterylife} heures</Text>
         </View>
         <View style={styles.wrapper}>
           <Image
-            source={require("./assets/icons/snow.png")}
+            source={require("./assets/icons/power.png")}
             style={styles.icon}
           ></Image>
           <Text>
-            {item.options.aircondition ? "Véhicule Climatisé" : "Pas de Clim"}
+            {item.options.db} hz
           </Text>
         </View>
       </View>
       <View style={styles.footer}>
-        <Text style={styles.textfooter}>{item.price}$ par jour</Text>
+        <Text style={styles.textfooter}>{item.price}$ au total</Text>
       </View>
     </View>
   );
 };
 
-export default CarDetail;
+export default ProductDetail;
 
 const vw = Dimensions.get("screen").width;
 const vh = Dimensions.get("screen").height;
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  carImage: {
-    width: 250,
+  earbudsImage: {
+    width: 150,
     height: 160,
   },
   wrappers: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     height: 25,
   },
   footer: {
-    backgroundColor: "#2c7896",
+    backgroundColor: "#1f1f1f",
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
