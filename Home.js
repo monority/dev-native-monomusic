@@ -17,7 +17,7 @@ const Home = (props) => {
 
 	const getEarbuds = async () => {
 		try {
-			const response = await fetch("http://192.168.0.31:5500/monos");
+			const response = await fetch("http://10.125.50.55:8000/apimono/getAll");
 			if (!response.ok) {
 				throw new Error("Erreur récupération données");
 			}
@@ -62,7 +62,7 @@ const Home = (props) => {
 				<ImageBackground
 					imageStyle={{ borderRadius: 15 }}
 					style={styles.image}
-					source={require("./assets/cover.jpeg")}
+					source={require("./assets/cover.png")}
 				>
 					<Text style={styles.text}>{earbuds.length} set d'écouteurs en vente</Text>
 
@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
 		width: vm / 2.2,
 	},
 	reservationImage: {
-		width: 120,
-		height: 80,
+		width: 100,
+		height: 100,
 	},
 	container: {
 		flex: 1,

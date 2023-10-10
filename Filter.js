@@ -12,28 +12,28 @@ import { FlatList } from "react-native-gesture-handler";
 
 const Filter = (props) => {
 
-	const getEarbuds = async () => {
-		try {
-			const response = await fetch("http://192.168.0.31:5500/monos");
-			if (!response.ok) {
-				throw new Error("Erreur récupération données");
-			}
-			const data = await response.json();
-			setEarbuds(data);
-		} catch (error) {
-			console.error("Error de fetch:", error.message);
-		}
-	}
-	useEffect(() => {
-		getEarbuds();
+  const getEarbuds = async () => {
+    try {
+      const response = await fetch("http://192.168.0.31:5500/monos");
+      if (!response.ok) {
+        throw new Error("Erreur récupération données");
+      }
+      const data = await response.json();
+      setEarbuds(data);
+    } catch (error) {
+      console.error("Error de fetch:", error.message);
+    }
+  }
+  useEffect(() => {
+    getEarbuds();
 
-	}, []);
-	const [earbuds, setEarbuds] = useState([]);
+  }, []);
+  const [earbuds, setEarbuds] = useState([]);
   const [isEnabled, setEnabled] = useState(true);
   const [priceMin, setMinPrice] = useState(0);
   const [priceMax, setMaxPrice] = useState(300);
 
-
+  const [isEnabledtwo, setEnabledtwo] = useState(true);
 
   const toggleSwitch = () => setEnabled((previousState) => !previousState);
   const toggleSwitchtwo = () =>
@@ -81,17 +81,17 @@ const Filter = (props) => {
 
       </View>
 
-	  <FlatList
-  keyExtractor={(item, index) => index.toString()}
-  data={earbuds}
-  renderItem={({ item }) => renderFilter(item)}
-/>
+      <FlatList
+        keyExtractor={(item, index) => index.toString()}
+        data={earbuds}
+        renderItem={({ item }) => renderFilter(item)}
+      />
     </View>
   );
 };
 
 const vh = Dimensions.get("screen").height;
-const vm = Dimensions.get("screen").width;
+const vw = Dimensions.get("screen").width;
 
 const styles = StyleSheet.create({
   titleLink: {
@@ -101,10 +101,9 @@ const styles = StyleSheet.create({
   containers: {
     backgroundColor: 'black',
     flex: 7,
-	
   },
-  white:{
-	color:"white",
+  white: {
+    color: "white",
   },
   titleLink: {
     color: "#28A2DA",
@@ -116,7 +115,7 @@ const styles = StyleSheet.create({
   titleReserve: {
     color: "#467485",
     fontSize: 20,
-	
+
   },
   reservations: {
     flexDirection: "row",
@@ -146,7 +145,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderWidth: 2,
-	backgroundColor:"white"
+    backgroundColor: "white"
 
   },
   containerInput: {
@@ -154,7 +153,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     margin: 15,
-	
+
   },
 });
 
