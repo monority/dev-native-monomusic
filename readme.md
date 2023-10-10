@@ -11,3 +11,4 @@ Project build in react native
 
 ![Screen 3](https://www.cjoint.com/doc/23_10/MJkm7dMBbGL_screenshot2.png "Filter page")
 
+<img src="https://www.cjoint.com/doc/23_10/MJkm7dMBbGL_screenshot2.png" width="150" height="280">
