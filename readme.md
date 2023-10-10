@@ -4,7 +4,6 @@
 <a href="https://github.com/monority/dev-native-monomusic">Mobile app<a/>  
 
 <a href="https://github.com/monority/dev-monomusic">Backoffice<a/>  
-
 <a href="https://github.com/monority/api-monomusic">API<a/>  
 <h2>Project Screenshots:</h2>
 
