@@ -24,6 +24,7 @@ const Filter = (props) => {
       console.error("Error de fetch:", error.message);
     }
   }
+
   useEffect(() => {
     getEarbuds();
 
